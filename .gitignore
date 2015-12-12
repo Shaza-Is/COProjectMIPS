@@ -1,0 +1,8 @@
+# ignore everything
+*
+
+# Then Whitelist
+!src/
+!*.v
+!*.md
+!.gitignore
