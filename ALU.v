@@ -1,0 +1,144 @@
+/**
+inputs:
+ ALUControl: (4 bits)
+ and: 0000
+ add: 0010
+ sub: 0110
+ slt: 0111
+ nor: 1100
+ sll: 1110
+
+ shamt: shift amount (5 bits)
+ rs: register 1
+ rt: register 2 or immediate 32-bit sign extended value
+
+outputs:
+ zero: 1 if rs-rt = 0
+ result: depends on ALUControl
+
+Delay: 10 ns for all instructions
+ */
+
+
+module ALU(result, zero, rs, rt, shamt, ALUControl);
+	input rs, rt, shamt, ALUControl;
+	output result, zero;
+	wire [31:0] rs, rt;
+	wire [4:0] shamt;
+	wire [3:0] ALUControl;
+	reg [31:0] result;
+	wire [31:0] add_res, sub_res, sll_res, and_res, nor_res, slt_res;
+	reg zero;
+
+	parameter AND = 0, ADD = 2, SUB = 6, SLT = 7, NOR = 12, SLL = 14;
+	
+	adder_32bit  ALU_ADD(add_res, rs, rt);
+	sub_32bit  ALU_SUB(sub_res, rs, rt);
+	shift_left  ALU_SLL(sll_res, rt, shamt);
+	and_32bit  ALU_AND(and_res, rs, rt);
+	nor_32bit  ALU_NOR(nor_res, rs, rt);
+	slt_32bit  ALU_SLT(slt_res, rs, rt);
+
+	initial 
+	begin
+		zero = 0;
+		result = 0;
+	end
+	
+	always @(sub_res)
+	begin
+		if(sub_res == 32'h00000000)
+		#10	zero <= 1;
+		else
+		#10	zero <= 0;
+	end
+
+	always @ (ALUControl, rs, rt, shamt)	
+	begin
+	case(ALUControl)
+		AND: 
+		#10	result <= and_res;
+		ADD:
+		#10	result <= add_res;
+		SUB:
+		#10	result <= sub_res;
+		SLT:
+		#10	result <= slt_res;
+		NOR:
+		#10	result <= nor_res;
+		SLL:
+		#10	result <= sll_res;
+	endcase	
+	end
+
+endmodule
+
+module sub_32bit(out, a, b);
+	output out;
+	input a, b;
+	reg [31:0] out;
+	wire [31:0] a,b;
+
+	always @ (a or b)
+	begin
+		out = a - b;
+	end
+
+endmodule
+
+module shift_left(out, in, shamt);
+	output out;
+	input in, shamt;
+	reg [31:0] out;
+	wire [31:0] in;
+	wire [4:0] shamt;
+
+	always @ (in or shamt)
+	begin
+		out = in << shamt;
+	end
+endmodule
+
+module and_32bit(out, a, b);
+	output out;
+	input a, b;
+	reg [31:0] out;
+	wire [31:0] a, b;
+
+	always @ (a or b)
+	begin
+		out = a & b;
+	end
+endmodule
+
+
+
+
+module nor_32bit(out, a, b);
+	output out;
+	input a, b;
+	reg [31:0] out;
+	wire [31:0] a, b;
+
+	always @ (a or b)
+	begin
+		out = ~(a | b);
+	end
+endmodule
+
+
+module slt_32bit(out, a, b);
+	output out;
+	input a, b;
+	reg [31:0] out;
+	wire [31:0] a, b;
+
+	always @ (a or b)
+	begin
+		if(a < b)
+			out = 32'h00000001;
+		else
+			out = 32'h00000000;
+	end
+endmodule
+
