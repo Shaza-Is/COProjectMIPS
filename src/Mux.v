@@ -1,4 +1,4 @@
-module mux2x1(out, sel, in0, in1);
+module mux_2x1(out, sel, in0, in1);
 	output out;
 	input sel, in0, in1;
 	wire [31:0] in0, in1;
@@ -15,7 +15,7 @@ module mux2x1(out, sel, in0, in1);
 endmodule
 
 /* just in case */
-module mux4x1(out, sel, in0, in1, in2, in3);
+module mux_4x1(out, sel, in0, in1, in2, in3);
 	output out;
 	input sel, in0, in1, in2, in3;
 	wire [31:0] in0, in1, in2, in3;
