@@ -7,4 +7,25 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-dC:/Modeltech_pe_edu_10.4a/examples
+Z0 dE:/Eslam/College/CO 2 Project/COProjectMIPS
+vadder_32bit
+!s110 1449947528
+!i10b 1
+!s100 b1Qd^QNGb<^WFKn:9eT8R3
+I`QK:NY:zP2CUO`?U6Qeh70
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1449947521
+8E:/Eslam/College/CO 2 Project/COProjectMIPS/adder.v
+FE:/Eslam/College/CO 2 Project/COProjectMIPS/adder.v
+L0 1
+OP;L;10.4a;61
+r1
+!s85 0
+31
+!s108 1449947528.000000
+!s107 E:/Eslam/College/CO 2 Project/COProjectMIPS/adder.v|
+!s90 -reportprogress|300|-work|work|-stats=none|E:/Eslam/College/CO 2 Project/COProjectMIPS/adder.v|
+!s101 -O0
+!i113 1
+o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact -O0
