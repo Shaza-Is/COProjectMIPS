@@ -39,8 +39,8 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 
 	initial 
 	begin
-		zero = 0;
-		result = 0;
+		zero <= 0;
+		result <= 32'h00000000;
 	end
 	
 	always @(sub_res)
@@ -51,7 +51,7 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 			zero <= 0;
 	end
 
-	always @ (ALUControl, rs, rt, shamt)	
+	always @(ALUControl, add_res, sub_res, sll_res, and_res, nor_res, slt_res)
 	begin
 	case(ALUControl)
 		AND: 
