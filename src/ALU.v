@@ -15,8 +15,6 @@ inputs:
 outputs:
  zero: 1 if rs-rt = 0
  result: depends on ALUControl
-
-Delay: 10 ns for all instructions
  */
 
 
@@ -48,26 +46,26 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 	always @(sub_res)
 	begin
 		if(sub_res == 32'h00000000)
-		#10	zero <= 1;
+			zero <= 1;
 		else
-		#10	zero <= 0;
+			zero <= 0;
 	end
 
 	always @ (ALUControl, rs, rt, shamt)	
 	begin
 	case(ALUControl)
 		AND: 
-		#10	result <= and_res;
+			result <= and_res;
 		ADD:
-		#10	result <= add_res;
+			result <= add_res;
 		SUB:
-		#10	result <= sub_res;
+			result <= sub_res;
 		SLT:
-		#10	result <= slt_res;
+			result <= slt_res;
 		NOR:
-		#10	result <= nor_res;
+			result <= nor_res;
 		SLL:
-		#10	result <= sll_res;
+			result <= sll_res;
 	endcase	
 	end
 
