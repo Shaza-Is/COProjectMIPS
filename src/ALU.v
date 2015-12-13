@@ -28,7 +28,7 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 	wire [31:0] add_res, sub_res, sll_res, and_res, nor_res, slt_res;
 	reg zero;
 
-	parameter AND = 0, ADD = 2, SUB = 6, SLT = 7, NOR = 12, SLL = 14;
+	parameter AND = 0, ADD = 2, SUB = 6, SLT = 7, NOR = 12, SLL = 14, NOP = 31;
 	
 	adder_32bit  ALU_ADD(add_res, rs, rt);
 	sub_32bit  ALU_SUB(sub_res, rs, rt);
@@ -66,6 +66,8 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 			result <= nor_res;
 		SLL:
 			result <= sll_res;
+		NOP:
+			result <= 32'hxxxxxxxx;
 	endcase	
 	end
 
