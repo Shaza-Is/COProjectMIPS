@@ -1,4 +1,4 @@
-												 module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,RegWrite,Jump);
+module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,RegWrite,Jump);
 	input [5:0] Opcode;
 	output Branch,MemRead,MemWrite,ALUsrc,RegWrite,Jump;
 	output [1:0] ALUop;
