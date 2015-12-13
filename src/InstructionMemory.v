@@ -22,9 +22,9 @@ module InstructionMemory (
 	input [31:0] address
 );	
 	reg [7:0] mem [0:255];	
-
+	integer i = 0;
+	
 	initial begin 					  
-		integer i = 0;
 		for ( i=0; i < 256 ; i=i+1) begin
 			mem[i] <= 8'b00000000;
 		end	   
