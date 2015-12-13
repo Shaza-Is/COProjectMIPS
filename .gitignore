@@ -6,3 +6,4 @@
 !*.v
 !*.md
 !.gitignore
+!*.list
