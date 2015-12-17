@@ -1,11 +1,11 @@
-module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,RegWrite,Jump);
+module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,RegWrite,Jump,Arith);
 	input [5:0] Opcode;
-	output Branch,MemRead,MemWrite,ALUsrc,RegWrite,Jump;
+	output Branch,MemRead,MemWrite,ALUsrc,RegWrite,Jump,Arith;
 	output [1:0] ALUop;
 	output [1:0] MemtoReg;
 	output [1:0] RegDstn;
 	
-	reg Branch,MemRead,MemWrite,ALUsrc,RegWrite,Jump;
+	reg Branch,MemRead,MemWrite,ALUsrc,RegWrite,Jump,Arith;
 	reg [1:0] ALUop;
 	reg [1:0] MemtoReg;
 	reg [1:0] RegDstn;
@@ -31,6 +31,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 0;
 			RegWrite = 1;
 			Jump = 0;
+			Arith = 1'bx;
 		end
 		Addi: begin
 			RegDstn = 2'b00; //rt
@@ -42,6 +43,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 1;
 			RegWrite = 1;
 			Jump = 0;
+			Arith = 1;
 		end
 		Lw: begin
 			RegDstn = 2'b00;
@@ -53,6 +55,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 1;
 			RegWrite = 1;
 			Jump = 0;
+			Arith = 1'b1;
 		end
 		Sw: begin
 			RegDstn = 2'bxx; //x
@@ -64,6 +67,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 1;
 			RegWrite = 0;
 			Jump = 0;
+			Arith = 1;
 		end
 		Andi: begin
 			RegDstn = 2'b00; //rt
@@ -75,6 +79,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 1;
 			RegWrite = 1;
 			Jump = 0;
+			Arith = 0;
 		end
 		Beq: begin
 			RegDstn = 2'bxx; //x
@@ -86,6 +91,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 0;
 			RegWrite = 0;
 			Jump = 0;
+			Arith = 1;
 		end
 		Jal: begin
 			RegDstn = 2'b10;
@@ -97,6 +103,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			ALUsrc = 1'bx; //x
 			RegWrite = 1;
 			Jump = 1;
+			Arith = 1'bx;
 		end
 		endcase
 	end
