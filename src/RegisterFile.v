@@ -1,4 +1,7 @@
 module regFile(readDat1, readDat2, regWrite, Jreg, clk, readReg1, readReg2, writeReg, writeData);
+	input writeData, writeReg, readReg1, readReg2, clk, Jreg, regWrite;
+	output readDat1, readDat2;
+
 	wire [31:0] readDat1;
 	wire [31:0] readDat2;
 	reg [31:0] registers [0:31];
