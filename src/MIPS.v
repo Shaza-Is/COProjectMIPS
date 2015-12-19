@@ -39,11 +39,55 @@ signExtender_16to32 se(immediate_extended, instruction[15:0] /* immediate value 
 // Register file
 wire [31:0] rs, rt, write_reg_data;
 wire Jreg_not, Jreg, reg_write;
+
 not(Jreg_not, Jreg);
 and(reg_write, cu_reg_write, Jreg_not);
+
 regFile reg_file(rs, rt, reg_write, clk, instruction[25:21] /* rs address */,
 				 instruction[20:16] /* rt address */, write_reg_address, write_reg_data);
 
+// ALU source mux
+wire [31:0] alu_input2;
+mux_2x1 mx2(alu_input2, cu_alu_src, rt, immediate_extended);
 
+// Shift left branch by 2 
+wire [31:0] branch_address_shifted;
+parameter branch_shift_amount = 2;
+shift_left sll2(branch_address_shifted, immediate_extended, branch_shift_amount);
+
+// ALU Control Unit
+wire [3:0] alu_control;
+ALU_Control_Unit alu_cu(alu_control, Jreg, cu_alu_src, instruction[5:0] /* function */);
+
+// ALU
+wire [31:0] alu_result;
+wire alu_zero;
+ALU alu(alu_result, alu_zero, rs, alu_input2, instruction[10:6] /* shamt */, alu_control);
+
+//Adder
+wire [31:0] final_branch_address;
+Adder branch_adder(final_branch_address,next_pc_address, branch_address_shifted);
+
+//branch And
+wire branch_address_selector;
+and(branch_address_selector,cu_branch,alu_zero);
+
+//Branch mux
+wire [31:0] mux_branch_output;
+mux_2x1 Branch_mux(mux_branch_output, branch_address_selector, next_pc_address, final_branch_address);
+
+//Jump mux
+wire [31:0] mux_jump_output;
+mux_2x1 jump_mux(mux_jump_output, cu_jump, mux_branch_output, jump_address);
+
+//Jreg mux
+mux_2x1 jreg_mux(pc_address_in, Jreg, mux_jump_output, rs);
+
+//Data_memory
+wire [31:0] data_mem_out;
+Data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write);
+
+//Memory output mux
+mux_4x1(write_reg_data, cu_mem_to_reg, alu_result, data_mem_out, next_pc_address);
 
 endmodule
