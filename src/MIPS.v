@@ -67,11 +67,11 @@ wire [31:0] alu_result;
 wire alu_zero;
 ALU alu(alu_result, alu_zero, rs, alu_input2, instruction[10:6] /* shamt */, alu_control);
 
-//Adder
+// Adder
 wire [31:0] final_branch_address;
 adder_32bit branch_adder(final_branch_address,next_pc_address, branch_address_shifted);
 
-//branch And
+// Branch And
 wire branch_address_selector;
 and(branch_address_selector,cu_branch,alu_zero);
 
