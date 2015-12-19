@@ -39,35 +39,35 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 
 	initial 
 	begin
-		zero <= 0;
-		result <= 32'h00000000;
+		zero = 0;
+		result = 32'h00000000;
 	end
 	
 	always @(sub_res, ALUControl)
 	begin
 		if(sub_res == 32'h00000000 && ALUControl == SUB)
-			zero <= 1;
+			zero = 1;
 		else
-			zero <= 0;
+			zero = 0;
 	end
 
 	always @(ALUControl, add_res, sub_res, sll_res, and_res, nor_res, slt_res)
 	begin
 	case(ALUControl)
 		AND: 
-			result <= and_res;
+			result = and_res;
 		ADD:
-			result <= add_res;
+			result = add_res;
 		SUB:
-			result <= sub_res;
+			result = sub_res;
 		SLT:
-			result <= slt_res;
+			result = slt_res;
 		NOR:
-			result <= nor_res;
+			result = nor_res;
 		SLL:
-			result <= sll_res;
+			result = sll_res;
 		NOP:
-			result <= 32'hxxxxxxxx;
+			result = 32'hxxxxxxxx;
 	endcase	
 	end
 

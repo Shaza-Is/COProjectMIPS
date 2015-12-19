@@ -7,9 +7,9 @@ module mux_2x1(out, sel, in0, in1);
 	always @ (sel)
 	begin
 		if(sel == 0)
-			out <= in0;
+			out = in0;
 		else
-			out <= in1;
+			out = in1;
 	end
 	
 endmodule
@@ -25,13 +25,13 @@ module mux_4x1(out, sel, in0, in1, in2, in3);
 	always @ (sel)
 	begin
 		if(sel == 0)
-			out <= in0;
+			out = in0;
 		else if(sel == 1)
-			out <= in1;
+			out = in1;
 		else if(sel == 2)
-			out <= in2;
+			out = in2;
 		else
-			out <= in3;
+			out = in3;
 	end
 	
 endmodule

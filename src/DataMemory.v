@@ -26,7 +26,7 @@ module DataMemory (
 );	
 	reg [7:0] mem [0:2047];
 	integer file;
-	parameter file_name = "DataMemn.list"; 
+	parameter file_name = "DataMem.list"; 
 	integer i;
 
 	initial begin 					  

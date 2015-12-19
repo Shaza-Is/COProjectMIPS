@@ -1,9 +1,12 @@
 module MIPS();
-reg clk;
+
+// Clock
+wire clk;
+Clock c(clk);
 
 // PC
 wire [31:0] pc_address_in, pc_address_out;
-PC program_counter(pc_address_out, pc_address_in, clk); // bayza
+PC program_counter(pc_address_out, pc_address_in, clk); 
 
 // Instruction memory
 wire [31:0] instruction;
@@ -21,9 +24,9 @@ ControlUnit cu(instruction[31:26] /* op_code */, cu_reg_dst, cu_branch, cu_mem_r
 	       cu_mem_to_reg, cu_alu_op, cu_mem_write, cu_alu_src, cu_reg_write, cu_jump, cu_arith);
 
 // Register destination mux
-wire [31:0] write_reg_address;
+wire [4:0] write_reg_address;
 parameter ra = 31;
-mux_4x1 mx1(write_reg_address, cu_reg_dst, instruction[20:16] /* rt */, instruction[15:11] /* rd */, ra);
+mux_4x1 mx1(write_reg_address, cu_reg_dst, instruction[20:16] /* rt */, instruction[15:11] /* rd */, ra, w_ignored1);
 
 // Shift left jump address by 2
 wire [27:0] jump_address_shifted;
@@ -57,7 +60,7 @@ shift_left sll2(branch_address_shifted, immediate_extended, branch_shift_amount)
 
 // ALU Control Unit
 wire [3:0] alu_control;
-ALU_Control_Unit alu_cu(alu_control, Jreg, cu_alu_src, instruction[5:0] /* function */);
+ALU_Control_Unit alu_cu(alu_control, Jreg, cu_alu_op, instruction[5:0] /* function */);
 
 // ALU
 wire [31:0] alu_result;
@@ -66,7 +69,7 @@ ALU alu(alu_result, alu_zero, rs, alu_input2, instruction[10:6] /* shamt */, alu
 
 //Adder
 wire [31:0] final_branch_address;
-Adder branch_adder(final_branch_address,next_pc_address, branch_address_shifted);
+adder_32bit branch_adder(final_branch_address,next_pc_address, branch_address_shifted);
 
 //branch And
 wire branch_address_selector;
@@ -85,9 +88,9 @@ mux_2x1 jreg_mux(pc_address_in, Jreg, mux_jump_output, rs);
 
 //Data_memory
 wire [31:0] data_mem_out;
-Data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write);
+DataMemory data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write);
 
 //Memory output mux
-mux_4x1(write_reg_data, cu_mem_to_reg, alu_result, data_mem_out, next_pc_address);
+mux_4x1 mx3(write_reg_data, cu_mem_to_reg, alu_result, data_mem_out, next_pc_address, w_ignored2);
 
 endmodule

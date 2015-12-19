@@ -27,8 +27,8 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 
 	initial 
 	begin
-		Jr <= 0;
-		ALUControl <= 4'b1111;
+		Jr = 0;
+		ALUControl = 4'b1111;
 	end
 
 	// handles function control
@@ -36,21 +36,21 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	begin
 	case(Function)
 		ADD:
-			FunctionRes <= 4'b0010;
+			FunctionRes = 4'b0010;
 		AND:
-			FunctionRes <= 4'b0000;
+			FunctionRes = 4'b0000;
 		SLT:
-			FunctionRes <= 4'b0111;
+			FunctionRes = 4'b0111;
 		NOR:
-			FunctionRes <= 4'b1100;
+			FunctionRes = 4'b1100;
 		SLL:
-			FunctionRes <= 4'b1110;
+			FunctionRes = 4'b1110;
 		JR: begin
 			if(ALUop == R_FORMAT)
-				Jr <= 1;
+				Jr = 1;
 			else
-				Jr <= 0;
-			FunctionRes <= 4'b1111;
+				Jr = 0;
+			FunctionRes = 4'b1111;
 		end
 	endcase
 	end
@@ -59,13 +59,13 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	begin
 	case(ALUop)
 		LW_SW_ADDI:
-			ALUControl <= 4'b0010;
+			ALUControl = 4'b0010;
 		BEQ:
-			ALUControl <= 4'b0110;
+			ALUControl = 4'b0110;
 		R_FORMAT:
-			ALUControl <= FunctionRes;
+			ALUControl = FunctionRes;
 		ANDI:
-			ALUControl <= 4'b0000;
+			ALUControl = 4'b0000;
 	endcase
 	end
 endmodule
