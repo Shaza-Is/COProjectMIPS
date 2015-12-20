@@ -7,6 +7,6 @@ module shift_left(out, in, shamt);
 
 	always @ (in or shamt)
 	begin
-		out = in << shamt;
+		#2 out = in << shamt;
 	end
 endmodule

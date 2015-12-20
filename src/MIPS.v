@@ -26,7 +26,7 @@ ControlUnit cu(instruction[31:26] /* op_code */, cu_reg_dst, cu_branch, cu_mem_r
 // Register destination mux
 wire [4:0] write_reg_address;
 parameter ra = 31;
-mux_4x1 mx1(write_reg_address, cu_reg_dst, instruction[20:16] /* rt */, instruction[15:11] /* rd */, ra, w_ignored1);
+mux_4x1_5bits mx1(write_reg_address, cu_reg_dst, instruction[20:16] /* rt */, instruction[15:11] /* rd */, ra, w_ignored1);
 
 // Shift left jump address by 2
 wire [27:0] jump_address_shifted;
@@ -92,5 +92,4 @@ DataMemory data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write);
 
 //Memory output mux
 mux_4x1 mx3(write_reg_data, cu_mem_to_reg, alu_result, data_mem_out, next_pc_address, w_ignored2);
-
 endmodule

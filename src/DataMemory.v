@@ -37,11 +37,13 @@ module DataMemory (
 		$readmemb(file_name, mem);
 	end
 	
-	always @(posedge mem_read) begin
-		data <= {mem[address], mem[address+1], mem[address+2], mem[address+3]};
+	always @(mem_read or address) begin
+		if(mem_read)
+			#25 data <= {mem[address], mem[address+1], mem[address+2], mem[address+3]};
 	end
 	
-	always @(posedge mem_write) begin
-		{mem[address], mem[address+1], mem[address+2], mem[address+3]} = write_data;
+	always @(mem_write or address or write_data) begin
+		if(mem_write)
+			#25 {mem[address], mem[address+1], mem[address+2], mem[address+3]} = write_data;
 	end
 endmodule

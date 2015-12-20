@@ -10,8 +10,10 @@
 		AND: 100100 
 		SLT: 101010
 		NOR: 100111
-		JR: 001000
+		JR:  001000
 		SLL: 000000
+
+		SUB: 100010  extra
 	
  */
 module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
@@ -23,7 +25,7 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	reg Jr;
 	
 	parameter LW_SW_ADDI = 0, BEQ = 1, R_FORMAT = 2, ANDI = 3;
-	parameter ADD = 32, AND = 36, SLT = 42, NOR = 39, JR = 8, SLL = 0;
+	parameter ADD = 32, AND = 36, SLT = 42, NOR = 39, JR = 8, SLL = 0, SUB = 34;
 
 	initial 
 	begin
@@ -45,12 +47,14 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 			FunctionRes = 4'b1100;
 		SLL:
 			FunctionRes = 4'b1110;
+		SUB:
+			FunctionRes = 4'b0110;
 		JR: begin
-			if(ALUop == R_FORMAT)
-				Jr = 1;
-			else
-				Jr = 0;
 			FunctionRes = 4'b1111;
+			if(ALUop == R_FORMAT)
+				#2 Jr = 1;
+			else
+				#2 Jr = 0;
 		end
 	endcase
 	end
@@ -59,13 +63,13 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	begin
 	case(ALUop)
 		LW_SW_ADDI:
-			ALUControl = 4'b0010;
+			#2 ALUControl = 4'b0010;
 		BEQ:
-			ALUControl = 4'b0110;
+			#2 ALUControl = 4'b0110;
 		R_FORMAT:
-			ALUControl = FunctionRes;
+			#2 ALUControl = FunctionRes;
 		ANDI:
-			ALUControl = 4'b0000;
+			#2 ALUControl = 4'b0000;
 	endcase
 	end
 endmodule

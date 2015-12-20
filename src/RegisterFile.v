@@ -4,6 +4,7 @@ module regFile(readDat1, readDat2, regWrite, clk, readReg1, readReg2, writeReg, 
 
 	wire [31:0] readDat1;
 	wire [31:0] readDat2;
+	wire [31:0] writeData;
 	reg [31:0] registers [0:31];
 	wire [4:0] readReg1;
 	wire [4:0] readReg2;
@@ -13,7 +14,7 @@ module regFile(readDat1, readDat2, regWrite, clk, readReg1, readReg2, writeReg, 
 	initial begin
 		for(i = 0; i < 32; i = i + 1)
 		begin
-			registers[i] <= 0;
+			registers[i] = 0;
 		end
 	end
 
@@ -21,8 +22,8 @@ module regFile(readDat1, readDat2, regWrite, clk, readReg1, readReg2, writeReg, 
 	assign readDat2 = registers[readReg2];
 
 	always @(posedge clk) begin 
-		if(regWrite && writeReg) begin
-			registers[writeReg] = writeData;
+		if(regWrite && writeReg != 0) begin
+			#2 registers[writeReg] = writeData;
 		end	
 	end
 

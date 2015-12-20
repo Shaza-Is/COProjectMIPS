@@ -22,6 +22,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 	begin
 		case(Opcode)
 		R: begin
+			#2 
 			RegDstn = 2'b01; //rd
 			Branch = 0;
 			MemRead = 0;
@@ -34,6 +35,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 1'bx;
 		end
 		Addi: begin
+#2
 			RegDstn = 2'b00; //rt
 			Branch = 0;
 			MemRead = 0;
@@ -46,6 +48,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 1;
 		end
 		Lw: begin
+#2
 			RegDstn = 2'b00;
 			Branch = 0;
 			MemRead = 1;
@@ -58,6 +61,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 1'b1;
 		end
 		Sw: begin
+#2
 			RegDstn = 2'bxx; //x
 			Branch = 0;
 			MemRead = 0;
@@ -70,6 +74,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 1;
 		end
 		Andi: begin
+#2
 			RegDstn = 2'b00; //rt
 			Branch = 0;
 			MemRead = 0;
@@ -82,6 +87,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 0;
 		end
 		Beq: begin
+#2
 			RegDstn = 2'bxx; //x
 			Branch = 1;
 			MemRead = 0;
@@ -94,6 +100,7 @@ module ControlUnit(Opcode,RegDstn,Branch,MemRead,MemtoReg,ALUop,MemWrite,ALUsrc,
 			Arith = 1;
 		end
 		Jal: begin
+#2
 			RegDstn = 2'b10;
 			Branch = 0;
 			MemRead = 0;

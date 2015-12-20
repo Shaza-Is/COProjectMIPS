@@ -7,8 +7,8 @@ module slt_32bit(out, a, b);
 	always @ (a or b)
 	begin
 		if(a < b)
-			out = 32'h00000001;
+			#2 out = 32'h00000001;
 		else
-			out = 32'h00000000;
+			#2 out = 32'h00000000;
 	end
 endmodule

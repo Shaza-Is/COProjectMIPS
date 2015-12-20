@@ -9,26 +9,15 @@ module PC(out,in,clk);
 	reg reset;
 	initial begin
 		reset = 1;
-	    #6 reset = 0;
+	    #51 reset = 0;
 	end
 	
 	always @ (posedge clk)
 	begin
 		if(reset)
-			out <= 0;
+			#2 out <= 0;
 		else
-			out <= in;		
+			#2 out <= in;		
 	end
 		
-endmodule
-		
-module test();
-	wire clk;  
-	wire [31:0] out;
-	reg [31:0] in;
-	initial begin
-		in = 0;
-	end
-	Clock c(clk);
-	PC pc(out,in,clk);
 endmodule
