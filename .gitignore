@@ -2,8 +2,9 @@
 *
 
 # Then Whitelist
-!src/
+!*/
 !*.v
 !*.md
 !.gitignore
 !*.list
+!*.rb
