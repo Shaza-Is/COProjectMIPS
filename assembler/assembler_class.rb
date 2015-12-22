@@ -37,8 +37,8 @@ class Assembler
 	def extract_labels!
 		@labels = {}
 		@assembly_code_lines.each_with_index do |c, i|
-			if m = /(?<label>[A-z]\w*:\s*)/.match(c)
-				@labels[m[:label]] = i+1 # putting label with instruction number in a hash
+			if m = /(?<label>[A-z]\w*):\s*/.match(c)
+				@labels[m[:label]] = i # putting label with instruction number in a hash
 				@assembly_code_lines[i] = c.gsub(m[:label], "")
 			end
 		end
@@ -47,13 +47,16 @@ class Assembler
 
 	def categorize!
 		@categorized_code = []
-		@assembly_code_lines.each do |c|
-			code_formats.keys.each do |key|
-				if Regexp.new("\\b" + key + "\\b") =~ c
-					inst = Object.const_get(code_formats[key] + "Format").new(c)
+		@assembly_code_lines.each_with_index do |c, c_ind|
+			code_formats.keys.each do |f|
+				if Regexp.new("\\b" + f + "\\b") =~ c
+					found_label = nil
 					@labels.keys.each do |label|
-						inst.label = label if c.include? label
+						 if c.include? label
+						 	found_label = @labels[label]
+						 end
 					end
+					inst = Object.const_get(code_formats[f] + "Format").new(c,c_ind,found_label)
 					@categorized_code << inst
 					break
 				end
@@ -72,7 +75,7 @@ class Assembler
 		regs_ord = regs.keys.join("|")
 		unless /^([A-z]\w*:\s*)?(add|and|slt|nor)\s+\$(#{regs_ord})\s*,\s*\$(#{regs_ord})\s*,\s*\$(#{regs_ord})$/ =~ l or
 					 /^([A-z]\w*:\s*)?(lw|sw)\s+\$(#{regs_ord})\s*,\s*([0-9]{1,5})\s*\(\$(#{regs_ord})\)$/ =~ l or
-					 /^([A-z]\w*:\s*)?(sll|addi|andi)\s+\$(#{regs_ord})\s*,\s*\$(#{regs_ord})\s*,\s*[0-9]{1,5}$/ =~ l or
+					 /^([A-z]\w*:\s*)?(sll|addi|andi)\s+\$(#{regs_ord})\s*,\s*\$(#{regs_ord})\s*,\s*-?[0-9]{1,5}$/ =~ l or
 					 /^([A-z]\w*:\s*)?(beq)\s+\$(#{regs_ord})\s*,\s*\$(#{regs_ord})\s*,\s*([A-z]\w*)$/ =~ l or
 					 /^([A-z]\w*:\s*)?(jal)\s+([A-z]\w*)\s*$/ =~ l or
 					 /^([A-z]\w*:\s*)?(jr)\s+\$(#{regs_ord})$/ =~ l or

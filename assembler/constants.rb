@@ -51,7 +51,9 @@ module Constants
 			rt_code_length: 5,
 			rd_code_length: 5,
 			shamt_code_length: 5,
-			funct_code_length: 6
+			funct_code_length: 6,
+			immed_address_code_length: 16,
+			j_address_length: 26
 		}
 	end
 
