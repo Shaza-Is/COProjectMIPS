@@ -43,9 +43,9 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 		result = 32'h00000000;
 	end
 	
-	always @(sub_res, ALUControl)
+	always @(result)
 	begin
-		if(sub_res == 32'h00000000 && ALUControl == SUB)
+		if(result == 32'h00000000)
 			#2 zero = 1;
 		else
 			#2 zero = 0;

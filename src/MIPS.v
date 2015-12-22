@@ -88,7 +88,7 @@ mux_2x1 jreg_mux(pc_address_in, Jreg, mux_jump_output, rs);
 
 //Data_memory
 wire [31:0] data_mem_out;
-DataMemory data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write);
+DataMemory data_memory(data_mem_out, alu_result, rt, cu_mem_read, cu_mem_write, clk);
 
 //Memory output mux
 mux_4x1 mx3(write_reg_data, cu_mem_to_reg, alu_result, data_mem_out, next_pc_address, w_ignored2);

@@ -33,6 +33,14 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 		ALUControl = 4'b1111;
 	end
 
+	always @ (Function or ALUop)
+	begin
+		if(ALUop == R_FORMAT && Function == JR)
+			#2 Jr = 1;
+		else
+			#2 Jr = 0;
+	end
+
 	// handles function control
 	always @ (Function)
 	begin
@@ -49,13 +57,8 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 			FunctionRes = 4'b1110;
 		SUB:
 			FunctionRes = 4'b0110;
-		JR: begin
+		JR: 
 			FunctionRes = 4'b1111;
-			if(ALUop == R_FORMAT)
-				#2 Jr = 1;
-			else
-				#2 Jr = 0;
-		end
 	endcase
 	end
 

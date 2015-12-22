@@ -22,7 +22,8 @@ module DataMemory (
 	input [31:0] address,
 	input [31:0] write_data,
 	input mem_read,
-	input mem_write
+	input mem_write,
+	input clk
 );	
 	reg [7:0] mem [0:2047];
 	integer file;
@@ -39,10 +40,10 @@ module DataMemory (
 	
 	always @(mem_read or address) begin
 		if(mem_read)
-			#25 data <= {mem[address], mem[address+1], mem[address+2], mem[address+3]};
+			#25 data = {mem[address], mem[address+1], mem[address+2], mem[address+3]};
 	end
 	
-	always @(mem_write or address or write_data) begin
+	always @(posedge clk) begin
 		if(mem_write)
 			#25 {mem[address], mem[address+1], mem[address+2], mem[address+3]} = write_data;
 	end
