@@ -1,0 +1,11 @@
+addi $s0, $zero, 3
+add $s1, $s0, $s0
+sw $s1, 0($s0)
+lw $s2, 0($s0)
+andi $s3, $s1, 5
+and $s4, $s1, $s0
+label: sll $s5, $s3, 2
+slt $s6, $s5, $s3
+slt $s7, $s3, $s5
+nor $t0, $s6, $s1
+jr $s3
