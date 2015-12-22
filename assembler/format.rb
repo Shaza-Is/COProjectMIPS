@@ -29,7 +29,7 @@ class RFormat < Format
 				@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
 				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], 0]
 			else
-				@rt_code = '%0*b' % [code_lengths[:rs_code_length], 0]
+				@rs_code = '%0*b' % [code_lengths[:rs_code_length], 0]
 				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], m[:shamt]]
 			end
 		else
