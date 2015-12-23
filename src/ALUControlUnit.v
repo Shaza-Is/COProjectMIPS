@@ -36,9 +36,9 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	always @ (Function or ALUop)
 	begin
 		if(ALUop == R_FORMAT && Function == JR)
-			#2 Jr = 1;
+			Jr <= #2 1;
 		else
-			#2 Jr = 0;
+			Jr <= #2 0;
 	end
 
 	// handles function control
@@ -66,13 +66,13 @@ module ALU_Control_Unit(ALUControl, Jr, ALUop, Function);
 	begin
 	case(ALUop)
 		LW_SW_ADDI:
-			#2 ALUControl = 4'b0010;
+			ALUControl <= #2 4'b0010;
 		BEQ:
-			#2 ALUControl = 4'b0110;
+			ALUControl <= #2 4'b0110;
 		R_FORMAT:
-			#2 ALUControl = FunctionRes;
+			ALUControl <= #2 FunctionRes;
 		ANDI:
-			#2 ALUControl = 4'b0000;
+			ALUControl <= #2 4'b0000;
 	endcase
 	end
 endmodule
