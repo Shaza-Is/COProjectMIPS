@@ -1,0 +1,26 @@
+Test Program #3 - Testing Shift - Loop and Multiply
+
+//====== C++ Code ======//
+
+A = 2;
+for (i=0 ; i<10 ; i++) {
+    A = A*2;
+}
+
+//====== Assembly Code ======//
+
+//initializing data
+
+addi $s0,$z,2    //$s0 = 2 -> A
+addi $s1,$z,0    //$s1 = 0 -> i
+addi $s2,$z,10   //$s2 = 10
+addi $s3,$z,0    //$s3 = 0
+
+
+//Multiply and Divide
+
+loop: sll $s0,$s0,1
+      addi $s1,$s1,1
+      beq $s1,$s2,end
+      j loop
+end:  sw $s0,0($s3)              //A is stored in location 0 .. loc 0 contains 1024
