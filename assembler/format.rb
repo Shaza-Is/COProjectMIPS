@@ -49,14 +49,11 @@ end
 # --------------------------------------------------------------------
 
 class IFormat < Format
-	attr_writer :label
-	attr_writer :number
 	def initialize code, number, label=nil
 		super
 		m = nil
 		case @op.strip
 		when "beq"
-			#TODO
 			m = /\$(?<rt>[a-z]+\d?)\s*,\s*\$(?<rs>[a-z]+\d?)\s*,/.match(@string_code)
 			@immed_code = ('%0*b' % [code_lengths[:immed_address_code_length], @label - @number - 1]).gsub(".", "1")
 		when "andi", "addi"
