@@ -42,7 +42,6 @@ class Assembler
 				@assembly_code_lines[i] = c.gsub(m[:label], "")
 			end
 		end
-		puts @labels
 	end
 
 	def categorize!
@@ -62,13 +61,14 @@ class Assembler
 				end
 			end
 		end
-		puts @categorized_code
 	end
 
 	def machinize!
+		@machine_code = []
 		@categorized_code.each do |code|
-			puts code.machine_code #TODO
+			@machine_code << code.machine_code.chars.each_slice(8).map(&:join)
 		end
+		@machine_code
 	end
 
 	def check_syntax l, line_num
