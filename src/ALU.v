@@ -46,9 +46,9 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 	always @(result)
 	begin
 		if(result == 32'h00000000)
-			#2 zero = 1;
+			zero <= #2 1;
 		else
-			#2 zero = 0;
+			zero <= #2 0;
 	end
 
 	always @(ALUControl, add_res, sub_res, sll_res, and_res, nor_res, slt_res)
@@ -67,7 +67,7 @@ module ALU(result, zero, rs, rt, shamt, ALUControl);
 		SLL:
 			result = sll_res;
 		NOP:
-			#2 result = 32'hxxxxxxxx;
+			result <= #2 32'hxxxxxxxx;
 	endcase	
 	end
 
