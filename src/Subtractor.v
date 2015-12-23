@@ -6,7 +6,7 @@ module sub_32bit(out, a, b);
 
 	always @ (a or b)
 	begin
-		#2 out = a - b;
+		out <= #2 a - b;
 	end
 
 endmodule

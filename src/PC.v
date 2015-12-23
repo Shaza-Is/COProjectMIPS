@@ -15,9 +15,9 @@ module PC(out,in,clk);
 	always @ (posedge clk)
 	begin
 		if(reset)
-			#2 out <= 0;
+			out <= #2 0;
 		else
-			#2 out <= in;		
+			out <= #2 in;		
 	end
 		
 endmodule
