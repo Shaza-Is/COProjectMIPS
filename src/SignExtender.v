@@ -6,5 +6,5 @@ module signExtender_16to32(out, in, Arith);
 	wire Arith;
 	// sign extend if arthimatic operation
 	// concatenate 16 zero if logical operation
-	assign out = Arith? { {16{in[15]}},{in[15:0]} } : { {16{1'b0}},{in[15:0]} };
+	assign #2 out = Arith? { {16{in[15]}},{in[15:0]} } : { {16{1'b0}},{in[15:0]} };
 endmodule
