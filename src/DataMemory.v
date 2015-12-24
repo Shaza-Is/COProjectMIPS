@@ -40,11 +40,11 @@ module DataMemory (
 	
 	always @(mem_read or address) begin
 		if(mem_read)
-			#25 data = {mem[address], mem[address+1], mem[address+2], mem[address+3]};
+			data <= #20 {mem[address], mem[address+1], mem[address+2], mem[address+3]};
 	end
 	
 	always @(posedge clk) begin
 		if(mem_write)
-			#25 {mem[address], mem[address+1], mem[address+2], mem[address+3]} = write_data;
+			{mem[address], mem[address+1], mem[address+2], mem[address+3]} <= #20 write_data;
 	end
 endmodule

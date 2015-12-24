@@ -33,6 +33,6 @@ module InstructionMemory (
 	end								  
 	
 	always @(address) begin
-		#25 instruction <= {mem[address], mem[address+1], mem[address+2], mem[address+3]};
+		instruction <= #20 {mem[address], mem[address+1], mem[address+2], mem[address+3]};
 	end
 endmodule
