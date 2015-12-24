@@ -1,0 +1,22 @@
+Test Program #6 - Testing Jr
+
+//====== C++ Code ======//
+
+for(int i=0;i<5;i++)
+{
+	j++;
+}
+
+//====== Assembly Code ======//
+
+        addi $s0,$z,0 //j=0
+        addi $s1,$z,0 //i=0
+        addi $s2,$z,5
+        addi $s3,$z,4
+
+        addi $s0,$s0,1  //j++
+        addi $s1,$s1,1  //i++
+        beq $s1,$s2,exit
+        jr $s3          //jump to instruction number 4
+
+exit:
