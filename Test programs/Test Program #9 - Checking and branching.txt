@@ -1,0 +1,26 @@
+Test Program #9 - Checking and branching
+
+//====== C++ Code ======//
+
+A=5;
+B=5;
+
+if(A<=B)
+{
+	A=10;
+}
+
+
+//====== Assembly Code ======//
+
+addi $s1,$zero,5    //A=5
+addi $s2,$zero,5    //B=5
+addi $s3,$zero,0
+
+slt $s0,$s2,$s1     //if(A<=B)  {$s0 = 0;}
+beq $s0,$zero,label
+Jal exit
+label:
+addi $s1,$zero,10    //A=10
+sw $s1,0($s3)        //loc 0 contains 10
+exit:

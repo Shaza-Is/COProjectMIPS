@@ -1,0 +1,32 @@
+Test Program #7 - Initialinzing array
+
+//====== C++ Code ======//
+for (int i=1;i<100;i++)
+{
+	A[i] = h+B[0];
+}
+
+//====== Assembly Code ======//
+
+addi $s0, $zero, 12    //base address of A =12
+addi $s5, $zero, 5      //A[0] = 5
+addi $s2, $zero, 100    //h = 100
+addi $s3, $zero, 1      //i=1
+
+addi $s4, $zero, 100
+addi $s1, $zero, 0
+
+
+sw $s2,0($s1)  //h = 100 in loc 0
+sw $s5,0($s0)  //A[0] = 5 in loc 12
+
+loop:
+lw $t0,0($s0)     //$t0 = A[0] = 5
+add $t0,$t0,$s2   //$t0 = A[0] +h = 105
+sll $t1,$s3,2     //$t1 = i*4
+add $t1,$t1,$s0   //$t1 = i*4 + base of A
+sw $t0,0($t1)     //store 105 in loc $t1
+addi $s3,$s3,1    //i++
+beq $s3,$s4,exit  //if(i==100) {goto exit;}
+jal loop             //jump to loop
+exit:
