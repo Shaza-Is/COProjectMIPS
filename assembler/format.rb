@@ -25,7 +25,7 @@ class RFormat < Format
 			@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
 			@rs_code = '%0*b' % [code_lengths[:rs_code_length], 0]
 			@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], m[:shamt]]
-		elsif @op.strip = "jr"
+		elsif @op.strip == "jr"
 			m = /\$(?<rs>[a-z]+\d?)/.match(@string_code)
 			@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
 			@rd_code = '%0*b' % [code_lengths[:rd_code_length], 0]
