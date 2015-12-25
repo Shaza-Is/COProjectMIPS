@@ -6,7 +6,7 @@ module Clock (clk);
 		clk <= 0;
 	end
 	always begin 
-		#50 clk <= ~clk;
+		#30 clk <= ~clk;
 	end
 
 endmodule

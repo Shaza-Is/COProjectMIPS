@@ -30,10 +30,8 @@ mux_4x1_5bits mx1(write_reg_address, cu_reg_dst, instruction[20:16] /* rt */, in
 
 // Shift left jump address by 2
 wire [27:0] jump_address_shifted;
-wire [31:0] jump_address;
 parameter jump_shift_amount = 2;
 shift_left sll1(jump_address_shifted, instruction[25:0] /* Jump least significant */, jump_shift_amount);
-assign jump_address = {next_pc_address[31:28], jump_address_shifted};
 
 // Sign extend
 wire [31:0] immediate_extended;
@@ -81,7 +79,7 @@ mux_2x1 Branch_mux(mux_branch_output, branch_address_selector, next_pc_address, 
 
 //Jump mux
 wire [31:0] mux_jump_output;
-mux_2x1 jump_mux(mux_jump_output, cu_jump, mux_branch_output, jump_address);
+mux_2x1 jump_mux(mux_jump_output, cu_jump, mux_branch_output, {next_pc_address[31:28], jump_address_shifted} /*concatenation*/);
 
 //Jreg mux
 mux_2x1 jreg_mux(pc_address_in, Jreg, mux_jump_output, rs);
