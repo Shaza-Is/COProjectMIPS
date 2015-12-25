@@ -1,0 +1,47 @@
+Test Program #8 - Summation
+
+//====== C++ Code ======//
+
+i=0;
+sum = 0;
+for(int i=0;i<10;i++)
+{
+	sum += A[i];
+}
+
+//====== Assembly Code ======//
+
+//initializing array
+
+addi $s0, $zero, 12     //base address of A =12
+addi $s5, $zero, 1      //A[0] = 1
+addi $s3, $zero, 1      //i=1
+addi $s4, $zero, 10
+
+sw $s5,0($s0)  //A[0] = 1 in loc 12
+
+loop:
+lw $t0,0($s0)       //$t0 = A[0] = 1
+sll $t1,$s3,2       //$t1 = i*4
+add $t1,$t1,$s0     //$t1 = i*4 + base of A
+sw $t0,0($t1)       //store 1 in loc $t1
+addi $s3,$s3,1      //i++
+beq $s3,$s4,endini  //if(i==10) {goto endini;}
+jal loop               //jump to loop
+endini:
+
+//summation
+
+addi $s0, $zero, 0      //i=0
+addi $s1, $zero, 0      //sum=0
+addi $s2, $zero, 12     //base address of A =12
+addi $s3, $zero, 9
+
+label: 
+sll $t0,$s0,2           //$t0 = i*4
+add $t0,$t0,$s2         //$t0 = i*4 + base
+lw $t0,0($t0)
+add $s1,$s1,$t0         //sum = sum + A[i]
+addi $s0,$s0,1          //i++ 
+slt $t0,$s3,$s0
+beq $t0,$zero,label
