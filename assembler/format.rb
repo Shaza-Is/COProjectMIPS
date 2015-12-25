@@ -20,17 +20,17 @@ class RFormat < Format
 	def initialize code, number, label=nil
 		super
 		unless @op.strip == "jr"
-			m = /\$(?<rd>[a-z]+\d?), \$(?<rt>[a-z]+\d?),/.match(@string_code)
+			m = /\$(?<rd>[a-z]+\d?), \$(?<rs>[a-z]+\d?),/.match(@string_code)
 			@string_code.gsub!(m.to_s, "").strip!
 			@rd_code = '%0*b' % [code_lengths[:rd_code_length], regs[m[:rd]]]
-			@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
+			@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
 
-			m = /(\$(?<rs>[a-z]+\d?)|(?<shamt>\d+))/.match(@string_code)
-			unless m[:rs].nil?
-				@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
+			m = /(\$(?<rt>[a-z]+\d?)|(?<shamt>\d+))/.match(@string_code)
+			unless m[:rt].nil?
+				@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
 				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], 0]
 			else
-				@rs_code = '%0*b' % [code_lengths[:rs_code_length], 0]
+				@rt_code = '%0*b' % [code_lengths[:rt_code_length], 0]
 				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], m[:shamt]]
 			end
 		else
