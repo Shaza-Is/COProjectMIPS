@@ -20,7 +20,7 @@ unless ARGV.empty?
 				end
 				puts "Wrote instruction memory file: \"#{instruction_code_file_path}\""
 			else
-				puts "No instruction code generated, Nothing to write in file!"
+				puts "No instruction code generated, Nothing to write in instruction file!"
 			end
 
 			unless data_code.empty?
@@ -29,9 +29,9 @@ unless ARGV.empty?
 				data_code.each do |byte|
 					data_code_file.puts byte
 				end
-				puts "Wrote Instruction memory file: \"#{data_code_file_path}\""
+				puts "Wrote data memory file: \"#{data_code_file_path}\""
 			else
-				puts "No data code generated, Nothing to write in file!"
+				puts "No data code generated, Nothing to write in data file!"
 			end
 		rescue Exception => e
 			puts e.message
