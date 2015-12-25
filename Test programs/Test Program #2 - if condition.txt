@@ -1,40 +1,40 @@
-Test Program #2 - if condition
+#Test Program #2 - if condition
 
-//====== C++ Code ======//
+#====== C++ Code ======#
 
-i=0;
-j=14;
-if (i<j) {
-    A[i] = 1000;
-}
-i=20;
-if (i<j) {
-    A[i] = 2000;
-}
+#i=0;
+#j=14;
+#if (i<j) {
+#    A[i] = 1000;
+#}
+#i=20;
+#if (i<j) {
+#    A[i] = 2000;
+#}
 
-//====== Assembly Code ======//
+#====== Assembly Code ======#
 
-//initializing data
-addi $s0,$z,4 //$s0 = 4
-addi $s1,$z,0  //$s1 = 0
-addi $s2,$s0,10 //$s2 = 14
-sw $s1,0($s0) //$s1 stored in location 4 .. 0 in loc 4
-sw $s2,4($s0) //$s2 stored in location 8 .. 14 in loc 8
+#initializing data
+addi $s0, $zero, 4 #$s0 = 4
+addi $s1, $zero, 0  #$s1 = 0
+addi $s2, $s0, 10 #$s2 = 14
+sw $s1, 0($s0) #$s1 stored in location 4 .. 0 in loc 4
+sw $s2, 4($s0) #$s2 stored in location 8 .. 14 in loc 8
 
-//if condition
+#if condition
 
-lw $t0, 0($s0)  //$t0 = 0
-lw $t1, 4($s0)  //$t1 = 14
-slt $t2, $t0, $t1  //$t2 = 1
-beq $t2, $z, exit  //wont branch
-sll $t0, $t0, 2  //$t0*4 = 0
-add $t0, $t0, $s0  //$t0 = 4
-addi $s5,$z,1000  // $s5 = 1000
-sw $s5, 0($t0)  //put 1000 in loc 4
-addi $t0,$t0,20 //$t0 = 24
-slt $t2, $t0, $t1  //$t2 = 0
-beq $t2, $z, exit  //Branch
-sll $t0, $t0, 2  //$t0*4 = 96 .. wont be executed
-add $t0, $t0, $s0  //$t0 = 100 .. wont be executed
-sw $s5, 0($t0)  //put 1000 in loc 100 .. wont be executed
+lw $t0, 0($s0)  #$t0 = 0
+lw $t1, 4($s0)  #$t1 = 14
+slt $t2, $t0, $t1  #$t2 = 1
+beq $t2, $zero, exit  #wont branch
+sll $t0, $t0, 2  #$t0*4 = 0
+add $t0, $t0, $s0  #$t0 = 4
+addi $s5, $zero, 1000  # $s5 = 1000
+sw $s5, 0($t0)  #put 1000 in loc 4
+addi $t0, $t0, 20 #$t0 = 24
+slt $t2, $t0, $t1  #$t2 = 0
+beq $t2, $zero, exit  #Branch
+sll $t0, $t0, 2  #$t0*4 = 96 .. wont be executed
+add $t0, $t0, $s0  #$t0 = 100 .. wont be executed
+sw $s5, 0($t0)  #put 1000 in loc 100 .. wont be executed
 exit:

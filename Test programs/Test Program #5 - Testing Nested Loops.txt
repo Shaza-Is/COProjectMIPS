@@ -1,42 +1,41 @@
-Test Program #5 - Testing Nested Loops
+#Test Program #5 - Testing Nested Loops
 
-//====== C++ Code ======//
+#====== C++ Code ======#
 
-int n=0;
-for (int i=0;i<100;i++)
-{
-	for(int j=0;j<100;j++)
-	{
-	    if(i==j)
-	    {
-	      n++;
-	    }
-	}
-}
+#int n=0;
+#for (int i=0;i<100;i++)
+#{
+#	for(int j=0;j<100;j++)
+#	{
+#	    if(i==j)
+#	    {
+#	      n++;
+#	    }
+#	}
+#}
 
-/
-//====== Assembly Code ======//
+#====== Assembly Code ======#
 
-//initializing data
+#initializing data
 
-addi $s0,$z,0  //n=0
-addi $s1,$z,0  //i=0
-addi $s2,$z,0  //j=0
-addi $s3,$z,100 
-addi $s4,$z,0
+addi $s0, $zero, 0  #n=0
+addi $s1, $zero, 0  #i=0
+addi $s2, $zero, 0  #j=0
+addi $s3, $zero, 100 
+addi $s4, $zero, 0
 
 L1:
-L2:     beq $s1,$s2,equal
+L2:     beq $s1, $s2, equal
         jal skip
 
-equal:  addi $s0,$s0,1
+equal:  addi $s0, $s0, 1
 
-skip:   addi $s2,$s2,1
-        beq $s2,$s3,L3
+skip:   addi $s2, $s2, 1
+        beq $s2, $s3, L3
         jal L2
 
-L3:     addi $s1,$s1,1
-        beq $s1,$s3,exit
+L3:     addi $s1, $s1, 1
+        beq $s1, $s3, exit
         jal L1
 exit:
-        sw $s0,0($s4)  //loc 0 contains 100
+        sw $s0, 0($s4)  #loc 0 contains 100
