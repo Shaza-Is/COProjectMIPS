@@ -19,25 +19,23 @@ end
 class RFormat < Format
 	def initialize code, number, label=nil
 		super
-		unless @op.strip == "jr"
-			m = /\$(?<rd>[a-z]+\d?), \$(?<rs>[a-z]+\d?),/.match(@string_code)
-			@string_code.gsub!(m.to_s, "").strip!
+		if @op.strip == "sll"
+			m = /\$(?<rd>[a-z]+\d?)\s*,\s*\$(?<rt>[a-z]+\d?)\s*,\s*(?<shamt>-?\d{1,})/.match(@string_code)
 			@rd_code = '%0*b' % [code_lengths[:rd_code_length], regs[m[:rd]]]
-			@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
-
-			m = /(\$(?<rt>[a-z]+\d?)|(?<shamt>\d+))/.match(@string_code)
-			unless m[:rt].nil?
-				@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
-				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], 0]
-			else
-				@rt_code = '%0*b' % [code_lengths[:rt_code_length], 0]
-				@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], m[:shamt]]
-			end
-		else
+			@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
+			@rs_code = '%0*b' % [code_lengths[:rs_code_length], 0]
+			@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], m[:shamt]]
+		elsif @op.strip = "jr"
 			m = /\$(?<rs>[a-z]+\d?)/.match(@string_code)
 			@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
 			@rd_code = '%0*b' % [code_lengths[:rd_code_length], 0]
 			@rt_code = '%0*b' % [code_lengths[:rt_code_length], 0]
+			@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], 0]
+		else
+			m = /\$(?<rd>[a-z]+\d?)\s*,\s*\$(?<rs>[a-z]+\d?)\s*,\s*\$(?<rt>[a-z]+\d?)/.match(@string_code)
+			@rd_code = '%0*b' % [code_lengths[:rd_code_length], regs[m[:rd]]]
+			@rs_code = '%0*b' % [code_lengths[:rs_code_length], regs[m[:rs]]]
+			@rt_code = '%0*b' % [code_lengths[:rt_code_length], regs[m[:rt]]]
 			@shamt_code = '%0*b' % [code_lengths[:shamt_code_length], 0]
 		end
 	end
