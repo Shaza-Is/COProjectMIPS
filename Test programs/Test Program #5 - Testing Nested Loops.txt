@@ -21,7 +21,7 @@
 addi $s0, $zero, 0  #n=0
 addi $s1, $zero, 0  #i=0
 addi $s2, $zero, 0  #j=0
-addi $s3, $zero, 100 
+addi $s3, $zero, 10 
 addi $s4, $zero, 0
 
 L1:
@@ -38,4 +38,4 @@ L3:     addi $s1, $s1, 1
         beq $s1, $s3, exit
         jal L1
 exit:
-        sw $s0, 0($s4)  #loc 0 contains 100
+        sw $s0, 0($s4)  #loc 0 contains 10

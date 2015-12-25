@@ -10,7 +10,7 @@
 
 addi $s0, $zero, 12    #base address of A =12
 addi $s5, $zero, 5      #A[0] = 5
-addi $s2, $zero, 100    #h = 100
+addi $s2, $zero, 100    #h = 100 (0x64)
 addi $s3, $zero, 1      #i=1
 
 addi $s4, $zero, 100

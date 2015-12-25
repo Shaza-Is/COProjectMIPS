@@ -12,11 +12,12 @@
         addi $s0, $zero, 0 #j=0
         addi $s1, $zero, 0 #i=0
         addi $s2, $zero, 5
-        addi $s3, $zero, 4
+        addi $s3, $zero, 16
+        addi $s4, $zero, 0
 
         addi $s0, $s0, 1  #j++
         addi $s1, $s1, 1  #i++
         beq $s1, $s2, exit
         jr $s3          #jump to instruction number 4
-
 exit:
+        sw $s0,0($s4)

@@ -23,4 +23,4 @@ loop: sll $s0, $s0, 1
       addi $s1, $s1, 1
       beq $s1, $s2, end
       jal loop
-end:  sw $s0, 0($s3)              #A is stored in location 0 .. loc 0 contains 1024
+end:  sw $s0, 0($s3)              #A is stored in location 0 .. loc 0 contains 2048 (0x800)
