@@ -1,5 +1,6 @@
 class Format
 	include Constants
+	attr_reader :string_code
 	def initialize code, number, label=nil
 		@string_code = code
 		@number = number
