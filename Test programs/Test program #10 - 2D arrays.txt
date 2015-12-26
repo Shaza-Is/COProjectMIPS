@@ -1,0 +1,39 @@
+#Test Program #10 - 2D arrays
+
+#================C++===========
+#sum = 0;
+#for(int i = 0; i < 4; i++)
+#{
+#	for(int j = 0; j < 5; j++)
+#	{
+#	    A[i][j] = B[j][i];
+#		sum = sum + A[i][j];
+#	}
+#}
+
+#======Assembly==========
+.data
+.word 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+
+.text
+addi $s0, $zero, 0  # sum = 0
+addi $t0, $zero, 0  # i = 0
+addi $t1, $zero, 0  # j = 0
+addi $s1, $zero, 0  # for B-array starting from first memory location
+addi $s2, $zero, 100  # to start saving array A from byte no. 100
+addi $s3, $zero, 3
+addi $s4, $zero, 4
+L1:
+addi $t1, $zero, 0
+L2:
+Lw $t2, 0($s1)
+sw $t2, 0($s2)
+addi $s1, $s1, 4
+addi $s2, $s2, 4
+add $s0, $s0, $t2
+addi $t1, $t1, 1
+slt $t3, $s4, $t1
+beq $t3, $zero, L2
+addi $t0, $t0, 1
+slt $t4, $s3, $t0
+beq $t4, $zero, L1
