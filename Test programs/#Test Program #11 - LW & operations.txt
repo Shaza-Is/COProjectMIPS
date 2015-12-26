@@ -1,0 +1,13 @@
+#Test Program #11 - LW & operations
+
+.data
+.word 15, 16
+
+.text
+addi $t0, $zero, 0
+addi $t1, $zero, 1
+lw $s0, 0($t0)
+lw $s1, 0($t1)
+add $s3, $s0, $s1
+nor $t3, $s0, $s1
+sll $s4, $s0, 2
