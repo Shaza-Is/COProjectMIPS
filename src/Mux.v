@@ -14,7 +14,6 @@ module mux_2x1(out, sel, in0, in1);
 	
 endmodule
 
-/* just in case */
 module mux_4x1(out, sel, in0, in1, in2, in3);
 	output out;
 	input sel, in0, in1, in2, in3;

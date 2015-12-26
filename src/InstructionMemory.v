@@ -33,8 +33,8 @@ module InstructionMemory (
 	end								  
 	
 	always @(address) begin
-		instruction <= #20 {mem[address], mem[address+1], mem[address+2], mem[address+3]};
-		if(instruction == 8'hxxxxxxxx || instruction == 8'h00000000 )
+		instruction = #20 {mem[address], mem[address+1], mem[address+2], mem[address+3]};
+		if(instruction === 32'hxxxxxxxx || instruction === 32'h00000000)
 			$finish(); // stops the simulation when program is finished
 	end
 endmodule

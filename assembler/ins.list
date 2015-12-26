@@ -1,3 +1,0 @@
-addi $s0, $zero, 3
-add $s1, $s0, $s0
-sw $s1, 0($s0)
