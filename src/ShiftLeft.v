@@ -7,7 +7,7 @@ module shift_left(out, in, shamt);
 
 	always @ (in or shamt)
 	begin
-		out = #2 in << shamt;
+		out <= #2 in << shamt;
 	end
 endmodule
 
@@ -20,6 +20,6 @@ module shift_left_jump(out, in, shamt);
 
 	always @ (in or shamt)
 	begin
-		out = #2 in << shamt;
+		out <= #2 in << shamt;
 	end
 endmodule
