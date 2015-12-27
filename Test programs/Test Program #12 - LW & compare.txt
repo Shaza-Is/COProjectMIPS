@@ -1,0 +1,10 @@
+#Test Program #12 - LW & compare
+#pseudo code: Is a < b
+.data
+.word 5, 15
+.text
+addi $t0, $zero, 0
+addi $t1, $zero, 1
+lw $s0, 0($t0)
+lw $s1, 0($t1)
+slt $s2, $s1, $s0
