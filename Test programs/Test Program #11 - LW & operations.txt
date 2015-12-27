@@ -5,7 +5,7 @@
 
 .text
 addi $t0, $zero, 0
-addi $t1, $zero, 1
+addi $t1, $zero, 4
 lw $s0, 0($t0)
 lw $s1, 0($t1)
 add $s3, $s0, $s1
