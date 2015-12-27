@@ -10,3 +10,5 @@
 !*.rb
 !*.txt
 !*.JPG
+!*.pdf
+!*.docx
